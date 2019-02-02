@@ -5,14 +5,14 @@ import org.simpleframework.xml.Text;
 
 public class Link {
     @Attribute(required = false)
-    public String href;
+    private String href;
 
     @Attribute(required = false)
-    public String rel;
+    private String rel;
 
     @Attribute(required = false)
-    public String type;
+    private String type;
 
     @Text(required = false)
-    public String link;
+    private String link;
 }

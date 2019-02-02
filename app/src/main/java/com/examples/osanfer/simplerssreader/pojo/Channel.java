@@ -12,20 +12,44 @@ import java.util.List;
 public class Channel {
     // Tricky part in Simple XML because the link is named twice
     @ElementList(entry = "link", inline = true, required = false)
-    public List<Link> links;
+    private List<Link> links;
 
     @ElementList(name = "item", required = true, inline = true)
-    public List<Item> itemList;
+    private List<Item> itemList;
 
     @Element(name="title")
-    String title;
+    private String title;
 
     @Element(name="language", required = false)
-    String language;
+    private String language;
 
     @Element(name = "ttl", required = false)
-    int ttl;
+    private int ttl;
 
     @Element(name = "pubDate", required = false)
-    String pubDate;
+    private String pubDate;
+
+    public List<Link> getLinks() {
+        return links;
+    }
+
+    public List<Item> getItemList() {
+        return itemList;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getLanguage() {
+        return language;
+    }
+
+    public int getTtl() {
+        return ttl;
+    }
+
+    public String getPubDate() {
+        return pubDate;
+    }
 }

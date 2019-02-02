@@ -1,4 +1,4 @@
-package com.examples.osanfer.simplerssreader.mpv;
+package com.examples.osanfer.simplerssreader.rsslist.mvp;
 
 public interface RSSListPresenter {
     void loadData();
