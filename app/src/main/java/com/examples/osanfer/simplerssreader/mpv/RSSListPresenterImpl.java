@@ -1,13 +1,11 @@
 package com.examples.osanfer.simplerssreader.mpv;
 
-import com.examples.osanfer.simplerssreader.pojo.Channel;
+import com.examples.osanfer.simplerssreader.pojo.RSSRespone;
 import com.examples.osanfer.simplerssreader.service.RSSServiceImpl;
-import com.examples.osanfer.simplerssreader.service.RSSServiceInterface;
 
-import io.reactivex.Observer;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.schedulers.Schedulers;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class RSSListPresenterImpl implements RSSListPresenter {
     RSSListView view;
@@ -19,30 +17,49 @@ public class RSSListPresenterImpl implements RSSListPresenter {
     @Override
     public void loadData() {
         view.showProgress();
-        RSSServiceImpl.getRestInterface().getData().subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<Channel>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
-                        //Nothing to do
-                    }
+        Call<RSSRespone> call = RSSServiceImpl.getRestInterface().getData();
+        call.enqueue(new Callback<RSSRespone>() {
+            @Override
+            public void onResponse(Call<RSSRespone> call, Response<RSSRespone> response) {
+                if(response.isSuccessful()) {
+                    response.body();
+                    // Todo store and show
+                } else {
+                    view.showError("An error occurred reading RSS");
+                }
+                view.hideProgress();
+            }
 
-                    @Override
-                    public void onNext(Channel channel) {
-                        view.showData(channel);
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        view.showError("An error occurred reading RSS");
-                        view.hideProgress();
-                    }
-
-                    @Override
-                    public void onComplete() {
-                        view.showComplete();
-                        view.hideProgress();
-                    }
-                });
+            @Override
+            public void onFailure(Call<RSSRespone> call, Throwable t) {
+                view.showError("An error occurred reading RSS");
+                view.hideProgress();
+            }
+        });
+//        RSSServiceImpl.getRestInterface().getData().subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(new Observer<Channel>() {
+//                    @Override
+//                    public void onSubscribe(Disposable d) {
+//                        //Nothing to do
+//                    }
+//
+//                    @Override
+//                    public void onNext(Channel channel) {
+//                        view.showData(channel);
+//                    }
+//
+//                    @Override
+//                    public void onError(Throwable e) {
+//                        view.showError("An error occurred reading RSS");
+//                        view.hideProgress();
+//                    }
+//
+//                    @Override
+//                    public void onComplete() {
+//                        view.showComplete();
+//                        view.hideProgress();
+//                    }
+//                });
     }
 }
