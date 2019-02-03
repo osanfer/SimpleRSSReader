@@ -10,25 +10,25 @@ import java.util.List;
 public class Item {
 
     @Element(name = "title", required = true)
-    String title;//The title of the item.	Venice Film Festival Tries to Quit Sinking
+    String title;
     @Element(name = "link", required = true)
-    String link;//The URL of the item.	http://www.nytimes.com/2002/09/07/movies/07FEST.html
+    String link;
     @Element(name = "description", required = true)
-    String description;//The item synopsis.	Some of the most heated chatter at the Venice Film Festival this week was about the way that the arrival of the stars at the Palazzo del Cinema was being staged.
+    String description;
     @Element(name = "author", required = false)
-    String author;//Email address of the author of the item. More.	oprah@oxygen.net
+    String author;
     @ElementList(entry = "category", inline = true, required = false)
-    List<String> category;//Includes the item in one or more categories. More.	Simpsons Characters
+    List<String> category;
     @Element(name = "comments", required = false)
-    String comments;//URL of a page for comments relating to the item. More.	http://www.myblog.org/cgi-local/mt/mt-comments.cgi?entry_id=290
+    String comments;
     @Element(name = "enclosure", required = false)
-    Enclosure enclosure;//	Describes a media object that is attached to the item. More.	<enclosure url="http://live.curry.com/mp3/celebritySCms.mp3" length="1069871" type="audio/mpeg"/>
+    Enclosure enclosure;
     @Element(name = "guid", required = false)
-    String guid;//A string that uniquely identifies the item. More.	<guid isPermaLink="true">http://inessential.com/2002/09/01.php#a2</guid>
+    String guid;
     @Element(name = "pubDate", required = false)
-    String pubDate;//	Indicates when the item was published. More.	Sun, 19 May 2002 15:21:36 GMT
+    String pubDate;
     @Element(name = "source", required = false)
-    String source;//	The RSS channel that the item came from. More.
+    String source;
 
     public String getTitle() {
         return title;

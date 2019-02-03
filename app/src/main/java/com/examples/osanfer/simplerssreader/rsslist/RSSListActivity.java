@@ -1,5 +1,6 @@
 package com.examples.osanfer.simplerssreader.rsslist;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -10,9 +11,8 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.examples.osanfer.simplerssreader.R;
-import com.examples.osanfer.simplerssreader.rsslist.mvp.RSSListPresenterImpl;
-import com.examples.osanfer.simplerssreader.rsslist.mvp.RSSListView;
 import com.examples.osanfer.simplerssreader.pojo.Item;
+import com.examples.osanfer.simplerssreader.rssnew.RSSNewActivity;
 
 import java.util.List;
 
@@ -28,8 +28,8 @@ public class RSSListActivity extends AppCompatActivity implements RSSListView {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rss_list);
         progressBar = findViewById(R.id.progressBar);
-        presenter = new RSSListPresenterImpl(this);
-        itemAdapter = new RSSItemAdapter();
+        presenter = new RSSListPresenterImpl(this, getPreferences(MODE_PRIVATE));
+        itemAdapter = new RSSItemAdapter(presenter);
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(itemAdapter);
@@ -54,5 +54,11 @@ public class RSSListActivity extends AppCompatActivity implements RSSListView {
     @Override
     public void hideProgress() {
         progressBar.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void launchActivity(int adapterPosition) {
+        Intent intent = new Intent(this, RSSNewActivity.class);
+        startActivity(intent);
     }
 }

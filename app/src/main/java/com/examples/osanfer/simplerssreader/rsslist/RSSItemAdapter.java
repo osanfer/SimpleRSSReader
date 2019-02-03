@@ -14,15 +14,17 @@ import java.util.List;
 
 public class RSSItemAdapter extends RecyclerView.Adapter<RSSItemViewHolder> {
     private List<Item> data;
+    private RSSListPresenter presenter;
 
-    public RSSItemAdapter() {
+    public RSSItemAdapter(RSSListPresenter presenter) {
+        this.presenter = presenter;
         data = new ArrayList<>();
     }
 
     @NonNull
     @Override
     public RSSItemViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        return new RSSItemViewHolder(LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.rss_list_recycler_row_view, viewGroup, false));
+        return new RSSItemViewHolder(this.presenter, LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.rss_list_recycler_row_view, viewGroup, false));
     }
 
     @Override
@@ -37,6 +39,10 @@ public class RSSItemAdapter extends RecyclerView.Adapter<RSSItemViewHolder> {
     @Override
     public int getItemCount() {
         return data.size();
+    }
+
+    public Item getItemAtPosition(int position) {
+        return this.data.get(position);
     }
 
     public void setData(List<Item> data) {

@@ -1,7 +1,6 @@
 package com.examples.osanfer.simplerssreader.pojo;
 
 import org.simpleframework.xml.Attribute;
-import org.simpleframework.xml.Text;
 
 public class Enclosure {
     @Attribute

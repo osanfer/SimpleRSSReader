@@ -1,4 +1,4 @@
-package com.examples.osanfer.simplerssreader.rsslist.mvp;
+package com.examples.osanfer.simplerssreader.rsslist;
 
 import com.examples.osanfer.simplerssreader.pojo.Item;
 
@@ -12,4 +12,8 @@ public interface RSSListView {
     void showProgress();
 
     void hideProgress();
+
+    void launchActivity();
+
+    Item getSelectedItem(int adapterPosition);
 }
