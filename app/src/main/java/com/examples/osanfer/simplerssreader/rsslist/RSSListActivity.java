@@ -28,7 +28,7 @@ public class RSSListActivity extends AppCompatActivity implements RSSListView {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rss_list);
         progressBar = findViewById(R.id.progressBar);
-        presenter = new RSSListPresenterImpl(this, getPreferences(MODE_PRIVATE));
+        presenter = new RSSListPresenterImpl(this, getSharedPreferences("RSS", MODE_PRIVATE));
         itemAdapter = new RSSItemAdapter(presenter);
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -57,7 +57,12 @@ public class RSSListActivity extends AppCompatActivity implements RSSListView {
     }
 
     @Override
-    public void launchActivity(int adapterPosition) {
+    public Item getSelectedItem(int adapterPosition) {
+        return itemAdapter.getItemAtPosition(adapterPosition);
+    }
+
+    @Override
+    public void launchActivity() {
         Intent intent = new Intent(this, RSSNewActivity.class);
         startActivity(intent);
     }

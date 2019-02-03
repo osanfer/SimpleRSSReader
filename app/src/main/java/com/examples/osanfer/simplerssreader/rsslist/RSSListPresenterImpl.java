@@ -9,7 +9,6 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
-import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -17,9 +16,9 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class RSSListPresenterImpl implements RSSListPresenter {
-    RSSListView view;
+    private RSSListView view;
     //TODO Move Shared preferences logic to another layer
-    SharedPreferences sp;
+    private SharedPreferences sp;
 
     public RSSListPresenterImpl(RSSListView view, SharedPreferences sp) {
         this.view = view;
@@ -39,7 +38,7 @@ public class RSSListPresenterImpl implements RSSListPresenter {
                     Gson gson = new Gson();
                     String json = gson.toJson(response.body().getChannel().getItemList().subList(0,5));
                     prefsEditor.putString("lastNews", json);
-                    prefsEditor.commit();
+                    prefsEditor.apply();
                 } else {
                     List<Item> data = loadDataFromSP();
                     if (data != null) {
@@ -68,17 +67,16 @@ public class RSSListPresenterImpl implements RSSListPresenter {
     public void onItemClick(int adapterPosition) {
         SharedPreferences.Editor prefsEditor = sp.edit();
         Gson gson = new Gson();
-        String json = gson.toJson(view.getSelectedItem());
+        String json = gson.toJson(view.getSelectedItem(adapterPosition));
         prefsEditor.putString("queryNew", json);
-        prefsEditor.commit();
-        view.launchActivity(adapterPosition);
+        prefsEditor.apply();
+        view.launchActivity();
     }
 
     private List<Item> loadDataFromSP() {
         Gson gson = new Gson();
         String json = sp.getString("lastNews", null);
         Type listType = new TypeToken<List<Item>>(){}.getType();
-        List<Item> data = gson.fromJson(json, listType);
-        return data;
+        return gson.fromJson(json, listType);
     }
 }
