@@ -1,7 +1,6 @@
 package com.examples.osanfer.simplerssreader.rsslist;
 
 import android.support.annotation.NonNull;
-import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
@@ -14,7 +13,6 @@ public class RSSItemViewHolder extends RecyclerView.ViewHolder implements Recycl
     private TextView txtDescription;
     private ImageView imgEnclosure;
     private RSSListPresenter presenter;
-    private ConstraintLayout constraintLayoutContainer;
 
     public RSSItemViewHolder(RSSListPresenter presenter, @NonNull View itemView) {
         super(itemView);
@@ -22,7 +20,6 @@ public class RSSItemViewHolder extends RecyclerView.ViewHolder implements Recycl
         txtTitle = itemView.findViewById(R.id.txtTitle);
         txtDescription = itemView.findViewById(R.id.txtDescription);
         imgEnclosure = itemView.findViewById(R.id.imgEnclosure);
-        constraintLayoutContainer = itemView.findViewById(R.id.RSSItemLayout);
         itemView.setOnClickListener(this);
     }
 
